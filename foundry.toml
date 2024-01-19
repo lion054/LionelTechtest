@@ -1,0 +1,28 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+
+[profile.build]
+  target = "ethereum"
+  output = "./artifacts"
+  compiler = "0.8.13"  # Use the Solidity version you are targeting
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+
+[profile.contracts.Counter]
+file = "contracts/Counter.sol"
+compiler = "solc"
+version = "^0.8.13"
+
+[profile.dependencies]
+ERC721 = "@openzeppelin/contracts/token/ERC721/ERC721.sol"
+ERC721URIStorage = "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol"
+Ownable = "@openzeppelin/contracts/access/Ownable.sol"
+AggregatorV3Interface = "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol"
+IPool = "@aave/core-v3/contracts/interfaces/IPool.sol"
+IERC721WithPermit = "@aave/core-v3/contracts/interfaces/IERC721WithPermit.sol"
+ILendingPool = "@aave/core-v3/contracts/interfaces/ILendingPool.sol"
+IERC721 = "@aave/core-v3/contracts/interfaces/IERC721.sol"
+IERC20 = "@aave/core-v3/contracts/interfaces/IERC20.sol"
+chai = "chai/"
