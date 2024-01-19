@@ -149,3 +149,65 @@ contract CounterTest is Test {
         return counter.tokenOfOwnerByIndex(owner, tokenBalance - 1);
     }
 }
+
+
+
+**Script**
+
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.13;
+
+import {Script, console} from "forge-std/Script.sol";
+import {Counter} from "../src/Counter.sol";
+
+contract CounterTest is Script {
+    Counter public counterInstance;
+    address public owner;
+
+    // Declare getSender function
+    function getSender() external view returns (address) {
+        return msg.sender;
+    }
+
+    function setUp() public {
+        owner = getSender();
+        counterInstance = new Counter(
+            address(0x022EEA14A6010167ca026B32576D6686dD7e85d2),
+            address(0x794a61358D6845594F94dc1DB02A252b5b4814aD),
+            address(0xDB8266d95Bc9E1b4C1440501Fae90838381a9156)
+        );
+        counterInstance.transferOwnership(owner);
+    }
+
+    function run() public {
+        // Deploy the Counter and set up tests
+        runTests();
+    }
+
+    function runTests() public {
+        // Test cases go here
+        purchaseInsuranceShouldSucceed();
+        // Other test cases...
+    }
+
+    function purchaseInsuranceShouldSucceed() public {
+        uint256 insuredAmount = 1 ether;
+
+        // Purchase insurance with 1 ether
+        counterInstance.purchaseInsurance{ value: insuredAmount }(insuredAmount);
+
+        // Check the owner has the correct balance of insurance NFTs
+        // Implement your own assertion here
+        console.log("Balance of owner:", counterInstance.balanceOf(owner));
+
+        // Check the insured amount is stored correctly in the NFT metadata
+        uint256 tokenId = counterInstance.tokenOfOwnerByIndex(owner, 0);
+        // Implement your own assertion here
+        console.log("Insurance amount of token:", counterInstance.getInsuranceAmount(tokenId));
+    }
+
+    // Other test functions...
+
+    // Note: You need to implement your own assertion mechanism here
+}
+
